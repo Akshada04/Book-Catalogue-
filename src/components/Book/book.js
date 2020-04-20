@@ -50,9 +50,8 @@ class Book extends Component {
     }
     return (
       <div className="main-container">
-        <div className="listGridView">
-          <button onClick={this.toggleView.bind(this)}>GridView</button>
-        </div>
+        {!this.state.addClass && <button className="listGridView" onClick={this.toggleView.bind(this)}>ListView</button>}
+        {this.state.addClass && <button className="listGridView" onClick={this.toggleView.bind(this)}>GridView</button>}
         <div className={listView.join(' ')}>
           {this.props.books.length && this.props.books.map(book => (
             <div className="card" key={book.id}>
@@ -66,7 +65,7 @@ class Book extends Component {
           ))
           }
           {this.props.pageNumber > 1 && <button className="prev" onClick={() => this.props.pagination("previous")}>Previous</button>}
-          <button className="next" onClick={() => this.props.pagination("next")}>Next</button>
+          {this.props.pageNumber < 19 && <button className="next" onClick={() => this.props.pagination("next")}>Next</button>}
         </div >
         <div className="openBook">
           <div
