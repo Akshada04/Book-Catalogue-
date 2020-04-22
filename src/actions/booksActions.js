@@ -8,7 +8,7 @@ import {
 } from "./actionTypes";
 
 export const fetchBooks = () => dispatch => {
-  dispatch(fetchUsersRequest());
+  dispatch(fetchRequest());
   axios
     .get("http://localhost:3004/books/?_page=1&_limit=20")
     .then(response => {
@@ -21,7 +21,7 @@ export const fetchBooks = () => dispatch => {
     });
 };
 
-export const fetchUsersRequest = () => {
+export const fetchRequest = () => {
   return {
     type: FETCH_BOOKS_REQUEST
   };
@@ -41,28 +41,20 @@ export const fetchFailure = error => {
   };
 };
 
-export const toggleIsFavorite = (book, flag) => (dispatch, getState) => {
+export const toggleIsFavorite = (book, flag) => (dispatch) => {
   console.log("Updated", book);
     book.isFavourite = flag
   axios
   .put("http://localhost:3004/books/" + book.id, book)
   .then(response => {
     const updatedBook = response.data;
-    // const bookList = getState().books.books;
-
-    // for (let i=0; i<bookList.length; i++) {
-    //     if(bookList[i].id === book.id) {
-    //         bookList[i] = book;
-    //         dispatch(fetchSuccess(bookList));
-    //         break;
-    //     }
-    // }
     dispatch(updateIsFavorite(updatedBook))
   })
   .catch(error => {
     // error.message is the error message
   })
 };
+
 
 export const updateIsFavorite = book => {
     return {

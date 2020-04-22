@@ -8,6 +8,7 @@ const MainRoutes = () => (
     <Switch>
         <Route exact path={"/Classifications"} component={Classifications} />
         <Route exact path={"/Favorites"} component={Favorites} />
+        <Route exact path={"/Home"} component={Book} />
         <Route exact path={"/"} component={Book} />
     </Switch>
 );
